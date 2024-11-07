@@ -20,7 +20,7 @@ int main() {
 
     sockaddr_in remoteAddr;
     remoteAddr.sin_family = AF_INET;
-    remoteAddr.sin_port = htons(12345); 
+    remoteAddr.sin_port = htons(13); 
     remoteAddr.sin_addr.s_addr = inet_addr("172.16.40.1"); 
 
     char buf[256];
