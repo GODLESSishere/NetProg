@@ -49,7 +49,7 @@ int main() {
         close(mySocket);
         errHandler("Ошибка отправки сообщения", 14);
     }
-    cout << "Алабастер: " << buf << endl;
+    cout << "GODLESS: " << buf << endl;
 
     rc = recv(mySocket, buf, sizeof(buf), 0);
     if (rc == -1) {
@@ -57,7 +57,7 @@ int main() {
         errHandler("Ошибка получения ответа", 15);
     }
     buf[rc] = '\0';
-    cout << "итак: " << buf << endl;
+    cout << "ГОДЛЕСС: " << buf << endl;
 
     close(mySocket);
 
