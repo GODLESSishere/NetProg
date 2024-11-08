@@ -51,7 +51,7 @@ int main() {
         close(mySocket);
         errHandler("ошибка отправки сообщения", 14);
     }
-    cout << "Мы сказали: " << buf << endl;
+    cout << "Запрос: " << buf << endl;
 
     rc = recv(mySocket, buf, sizeof(buf), 0);
     if (rc == -1) {
@@ -59,7 +59,7 @@ int main() {
         errHandler("Ошибка получения ответа", 15);
     }
     buf[rc] = '\0';
-    cout << "Нам ответили: " << buf << endl;
+    cout << "Ответ сервера 172.16.40.1: " << buf << endl;
 
     close(mySocket);
 
