@@ -58,7 +58,7 @@ int main() {
         close(mySocket);
         errHandler("Ошибка получения ответа", 15);
     }
-    buf[rc] = '0';
+    buf[rc] = '\0';
     cout << "Нам ответили: " << buf << endl;
 
     close(mySocket);
