@@ -1,28 +1,23 @@
-# Имя исполняемого файла
-TARGET = udp_client
+.PHONY: all debug release clean
 
-# Компилятор
-CXX = g++
+Compiler = g++
+RELEASE_FLAGS = -O2 -Wall -DNDEBUG 
+DEBUG_FLAGS   = -g -O0 -Wall 
+RELEASE_EXEC  = client
+DEBUG_EXEC    = client-dbg
+SOURCES       = main.cpp
+BOOST = -lboost_program_options
+all: debug release
 
-# Флаги компиляции
-CXXFLAGS = -Wall -Wextra -std=c++11
+debug: $(DEBUG_EXEC)
 
-# Исходные файлы
-SRCS = main.cpp
+$(DEBUG_EXEC): $(SOURCES)
+	$(Compiler) $(DEBUG_FLAGS) $(SOURCES) -o $(DEBUG_EXEC) $(BOOST)
 
-# Объектные файлы
-OBJS = $(SRCS:.cpp=.o)
+release: $(RELEASE_EXEC)
 
-# Правило для сборки исполняемого файла
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+$(RELEASE_EXEC): $(SOURCES)
+	$(Compiler) $(RELEASE_FLAGS) $(SOURCES) -o $(RELEASE_EXEC) $(BOOST)
 
-# Правило для компиляции объектных файлов
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Очистка
 clean:
-	rm -f $(OBJS) $(TARGET)
-
-.PHONY: clean
+	rm -f $(RELEASE_EXEC) $(DEBUG_EXEC)
