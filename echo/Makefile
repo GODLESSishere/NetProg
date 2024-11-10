@@ -1,27 +1,23 @@
-# Имя исполняемого файла
-TARGET = client
+.PHONY: all debug release clean
 
-# Компилятор и флаги компиляции
-CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++11
+Compiler = g++
+RELEASE_FLAGS = -O2 -Wall -DNDEBUG 
+DEBUG_FLAGS   = -g -O0 -Wall 
+RELEASE_EXEC  = clientecho
+DEBUG_EXEC    = clientecho-dbg
+SOURCES       = main.cpp
+BOOST = -lboost_program_options
+all: debug release
 
-# Исходные файлы
-SRCS = main.cpp
-OBJS = $(SRCS:.cpp=.o)
+debug: $(DEBUG_EXEC)
 
-# Правило по умолчанию
-all: $(TARGET)
+$(DEBUG_EXEC): $(SOURCES)
+	$(Compiler) $(DEBUG_FLAGS) $(SOURCES) -o $(DEBUG_EXEC) $(BOOST)
 
-# Линковка
-$(TARGET): $(OBJS)
-	$(CXX) $(OBJS) -o $@
+release: $(RELEASE_EXEC)
 
-# Компиляция исходников в объектные файлы
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(RELEASE_EXEC): $(SOURCES)
+	$(Compiler) $(RELEASE_FLAGS) $(SOURCES) -o $(RELEASE_EXEC) $(BOOST)
 
-# Очистка
 clean:
-	rm -f $(OBJS) $(TARGET)
-
-.PHONY: all clean
+	rm -f $(RELEASE_EXEC) $(DEBUG_EXEC)
